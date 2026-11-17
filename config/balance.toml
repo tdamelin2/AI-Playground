@@ -1,0 +1,730 @@
+# Rates and timings for the island ecology. Each value says why it is what it is.
+
+extinction_delay_ticks = 20160   # a wiped-out animal stays away one season before returning
+summary_interval_ticks = 1440    # one day summary event per game day
+
+[movement]
+movement_step_ticks = 1          # movement is checked every game minute; steps end exactly on a tick (must be 1 in this phase)
+max_start_share = 0.25           # at most a quarter of one kind starts a step in the same minute, so herds never move in lockstep
+
+[trees]
+regrow_ticks = 10080             # a cut tree regrows after a week
+overcut_threshold = 0.5          # below half the original trees in an area, nothing regrows
+
+[stone]
+rocky_stone = 15                 # loose stone on a rocky tile: enough for a first pickaxe
+quarry_stone = 60                # each quarry tile holds a lot; stone never regrows
+
+[water]
+spring_output = 10.0             # water a spring gives per use
+lake_output = 40.0               # the lake gives more
+[water.multiplier]
+clear = 1.0                      # normal water
+rain = 1.0                       # rain does not change the supply
+storm = 1.0                      # storms do not change the supply
+drought = 0.4                    # drought cuts fresh water to 40 percent
+
+[crops]
+planted_ticks = 4320             # 3 days planted before sprouting
+growing_ticks = 8640             # 6 more days to ready: 9 days total, well inside one season
+ready_spoil_ticks = 10080        # a ready crop left for a week fails
+failed_reset_ticks = 4320        # a failed field can be sown again after 3 days
+growing_seasons = ["spring", "summer", "autumn"]   # nothing grows in winter
+[plants.berries]
+regrow_ticks = 10080            # a picked bush regrows after a week (only if still in season)
+
+[plants.mushrooms]
+regrow_ticks = 7200             # five days
+
+[plants.roots]
+regrow_ticks = 10080                # a week
+
+[plants.herbs]
+regrow_ticks = 7200                 # five days
+
+[plants.healing_herbs]
+regrow_ticks = 14400        # ten days: medicine is scarce
+
+[plants.mild_poison]
+regrow_ticks = 10080          # a week
+
+[plants.strong_poison]
+regrow_ticks = 14400        # ten days
+
+# Animals: minutes_per_tile is the game minutes one step takes at speed x1 (a rabbit hops about every 3 minutes).
+# A wander bout is a few steps in a row, then the animal rests. Fleeing steps are faster than wandering.
+
+[animals.rabbit]
+breed_interval = 1440            # one breeding chance per day
+birth_chance = 0.3               # rabbits breed fast
+flees_dogs = true                # runs from dogs
+flee_radius = 4                  # notices a dog within 4 tiles
+recolonise_count = 2             # two return after an extinction
+minutes_per_tile = 3             # quick small hops
+bout_min_tiles = 2               # shortest wander bout
+bout_max_tiles = 6               # longest wander bout
+rest_min_minutes = 20            # shortest rest between bouts
+rest_max_minutes = 120           # longest rest between bouts
+flee_minutes_per_tile = 1        # sprints away at triple speed
+
+[animals.deer]
+breed_interval = 2880            # one breeding chance every 2 days
+birth_chance = 0.1               # slow breeders
+flees_dogs = true                # runs from dogs
+flee_radius = 5                  # sharp senses: notices dogs from 5 tiles
+recolonise_count = 2             # two return after an extinction
+minutes_per_tile = 3             # light, quick walker
+bout_min_tiles = 2               # shortest wander bout
+bout_max_tiles = 6               # longest wander bout
+rest_min_minutes = 20            # shortest rest between bouts
+rest_max_minutes = 120           # longest rest between bouts
+flee_minutes_per_tile = 1        # bolts away at triple speed
+
+[animals.boar]
+breed_interval = 2880            # one breeding chance every 2 days
+birth_chance = 0.08              # slowest breeder
+flees_dogs = false               # stands its ground
+flee_radius = 0                  # unused: does not flee
+recolonise_count = 2             # two return after an extinction
+minutes_per_tile = 5             # heavy and slow
+bout_min_tiles = 2               # shortest wander bout
+bout_max_tiles = 6               # longest wander bout
+rest_min_minutes = 20            # shortest rest between bouts
+rest_max_minutes = 120           # longest rest between bouts
+
+[animals.fish]
+breed_interval = 1440            # one breeding chance per day
+birth_chance = 0.25              # fish breed fast
+flees_dogs = false               # dogs cannot reach the water
+flee_radius = 0                  # unused: does not flee
+recolonise_count = 3             # three return after an extinction
+minutes_per_tile = 8             # drifts slowly
+bout_min_tiles = 2               # shortest wander bout
+bout_max_tiles = 6               # longest wander bout
+rest_min_minutes = 20            # shortest rest between bouts
+rest_max_minutes = 120           # longest rest between bouts
+
+[animals.bird]
+breed_interval = 1440            # one breeding chance per day
+birth_chance = 0.1               # moderate
+flees_dogs = true                # flies off from dogs
+flee_radius = 4                  # notices a dog within 4 tiles
+recolonise_count = 2             # two return after an extinction
+minutes_per_tile = 2             # fastest hopper
+bout_min_tiles = 2               # shortest wander bout
+bout_max_tiles = 6               # longest wander bout
+rest_min_minutes = 20            # shortest rest between bouts
+rest_max_minutes = 120           # longest rest between bouts
+flee_minutes_per_tile = 1        # flaps away at double speed
+
+[animals.nest_eggs]
+breed_interval = 1440            # nests are laid by birds, checked daily
+birth_chance = 0.5               # a good chance each spring day
+moves = false                    # eggs stay where they were laid (no movement keys allowed)
+flees_dogs = false               # cannot flee
+flee_radius = 0                  # unused
+recolonise_count = 0             # nests do not recolonise
+
+[animals.goat]
+breed_interval = 2880            # one breeding chance every 2 days
+birth_chance = 0.1               # slow breeders
+flees_dogs = true                # runs from dogs
+flee_radius = 4                  # notices a dog within 4 tiles
+recolonise_count = 2             # two return after an extinction
+minutes_per_tile = 6             # ambles
+bout_min_tiles = 2               # shortest wander bout
+bout_max_tiles = 6               # longest wander bout
+rest_min_minutes = 20            # shortest rest between bouts
+rest_max_minutes = 120           # longest rest between bouts
+flee_minutes_per_tile = 3        # scrambles away at double speed
+
+[animals.chicken]
+breed_interval = 1440            # one breeding chance per day
+birth_chance = 0.15              # steady breeders
+flees_dogs = true                # runs from dogs
+flee_radius = 4                  # notices a dog within 4 tiles
+recolonise_count = 2             # two return after an extinction
+minutes_per_tile = 6             # pecks and ambles
+bout_min_tiles = 2               # shortest wander bout
+bout_max_tiles = 6               # longest wander bout
+rest_min_minutes = 20            # shortest rest between bouts
+rest_max_minutes = 120           # longest rest between bouts
+flee_minutes_per_tile = 3        # flaps away at double speed
+
+[dogs]
+max_pack_size = 6                # packs can grow past their starting 2-4
+max_total = 24                   # keep dogs from overshadowing the players
+minutes_per_tile = 4             # a trot by day in summer
+bout_min_tiles = 2               # shortest wander bout
+bout_max_tiles = 6               # longest wander bout
+rest_min_minutes = 20            # shortest rest between bouts
+rest_max_minutes = 120           # longest rest between bouts
+night_multiplier = 2.5           # dogs hunt at night: steps and rests are 2.5 times shorter
+winter_multiplier = 1.6          # and in winter: 1.6 times shorter (both apply together)
+cohesion = 3                     # pack members stay within 3 tiles of the leader
+breed_interval = 10080           # one chance per week
+birth_chance = 0.05              # slow: far slower than rabbits
+
+
+# ---------------------------------------------------------------- Phase 2: bodies and people
+
+[body]
+interval_ticks = 10              # needs are updated every 10 game minutes: fine enough, and a game year stays fast
+hunger_per_day = 24              # hunger points gained per day: about 2 food units a day keep a person fed
+thirst_per_day = 48              # thirst rises twice as fast as hunger
+fatigue_per_day = 60             # tiredness gained per awake day: a full day awake leaves you worn
+rest_recovery_per_hour = 12      # resting or sleeping removes 12 tiredness an hour: 8 hours clears a day
+cold_night_per_hour = 6          # cold gained per hour outdoors at night without fire or shelter
+cold_winter_per_hour = 4         # extra cold per hour outdoors in winter (day and night)
+cold_rain_per_hour = 2           # extra cold per hour outdoors in rain
+cold_storm_per_hour = 4          # extra cold per hour outdoors in a storm
+cold_recovery_per_hour = 10      # cold lost per hour near a fire, in shelter, or on a mild day
+fire_warm_radius = 3             # a burning fire warms people within 3 tiles
+shelter_radius = 2               # a finished house shelters people within 2 tiles
+critical_level = 85              # a need above this starts hurting health
+critical_health_loss_per_hour = 6 # health lost per hour for each need above the critical level
+health_regen_per_hour = 2        # health regained per hour when well fed, watered, warm and rested
+regen_below = 60                 # every need must be below this for health to regrow
+pain_decay_per_hour = 3          # pain fades 3 points an hour
+hunger_per_food_unit = 12        # one food unit removes 12 hunger
+thirst_per_water = 8             # one water removes 8 thirst
+sated_level = 10                 # "eat until sated" stops at this hunger
+respawn_hunger = 30              # body values after coming back home: a little hungry
+respawn_thirst = 30              # a little thirsty
+respawn_cold = 20                # slightly cold
+respawn_fatigue = 40             # tired from the ordeal
+respawn_health = 70              # not fully healed
+respawn_pain = 10                # a little sore
+death_x_loss = 10                # design.md: death costs 10 points of X
+herb_pain_relief = 25            # ordinary herbs ease pain a bit
+herb_health = 5                  # and give a little health
+healing_herb_pain_relief = 40    # healing herbs ease pain a lot (and cure sickness)
+
+[body.sickness.mild_poison]
+duration_ticks = 360             # six hours of stomach ache
+health_loss_per_hour = 2         # annoying, not deadly
+pain_per_hour = 4                # pain builds while sick
+onset_blow = 6                   # drop in X when it starts
+work_penalty = 0.75              # works at three quarters speed (design.md: slower work)
+
+[body.sickness.strong_poison]
+duration_ticks = 720             # twelve hours
+health_loss_per_hour = 12        # 144 health over the sickness: fatal unless cured
+pain_per_hour = 10               # severe pain
+onset_blow = 15                  # big drop in X
+work_penalty = 0.5               # half speed
+
+[body.sickness.raw_meat]
+duration_ticks = 240             # four hours
+health_loss_per_hour = 1         # mild
+pain_per_hour = 3                # some pain
+onset_blow = 3                   # small drop in X
+work_penalty = 0.85              # slightly slower
+
+[body.sickness.spoiled_meat]
+duration_ticks = 480             # eight hours
+health_loss_per_hour = 2         # worse than raw
+pain_per_hour = 4                # pain builds
+onset_blow = 5                   # moderate drop in X
+work_penalty = 0.8               # slower
+
+[food]
+food_per_day = 2.0               # food units one person needs a day (hunger_per_day / hunger_per_food_unit)
+[food.values]
+berries = 1.0                    # a handful
+mushrooms = 1.0                  # a handful
+roots = 1.5                      # filling
+herbs = 0.5                      # barely food
+healing_herbs = 0.5              # barely food
+mild_poison = 1.0                # looks like food, makes you ill
+strong_poison = 1.0              # looks like food, can kill
+raw_meat = 3.0                   # filling but unsafe
+cooked_meat = 4.0                # the best food
+spoiled_meat = 2.0               # filling but unsafe
+fish = 2.5                       # good food
+eggs = 1.5                       # small
+milk = 1.0                       # small
+crops = 2.0                      # harvested farm food
+[food.spoil_ticks]
+raw_meat = 1440                  # design: raw meat spoils after about one game day
+cooked_meat = 4320               # cooked meat lasts three days
+fish = 2880                      # fish lasts two days
+[food.sick_on_eat]
+raw_meat = "raw_meat"            # raw meat makes you ill
+spoiled_meat = "spoiled_meat"    # spoiled meat makes you ill
+mild_poison = "mild_poison"      # the mild plant
+strong_poison = "strong_poison"  # the strong plant
+
+[wellbeing]
+k = 3.0                          # curvature of f(c) = log(1+k*c)/log(1+k): bigger = stronger diminishing returns
+half_life_ticks = 2880           # B (gains and blows) halves every 2 game days (design.md)
+band_edges = [80.0, 60.0, 40.0, 20.0]   # lower edges of the bands, best first (design.md table)
+band_names = ["strong", "all_right", "uneasy", "suffering", "miserable"]   # best to worst
+speed_mult = [1.0, 1.0, 0.75, 0.45, 0.20]  # walking speed per band
+work_mult = [1.0, 1.0, 0.75, 0.45, 0.20]   # work output per band
+hooked_x = 40.0                  # hooked below this X (design.md)
+hooked_pain = 60.0               # or at this pain or more
+trust_neutral = 50.0             # trust fades toward 50
+anger_neutral = 0.0              # anger fades toward 0
+trust_fade_per_day = 2.0         # slowly: two points a day
+anger_fade_per_day = 4.0         # anger cools twice as fast
+start_trust = 50.0               # strangers start neutral
+shelter_base = 0.2               # shelter comfort with no house at all
+achievement_stages = 5           # five task stages
+task_stage_gain = 6.0            # B gain for finishing a task stage
+promise_kept_gain = 2.0          # small joy for a kept promise (the receiver)
+promise_broken_blow = 5.0        # hurt when a promise to you is broken
+theft_blow = 5.0                 # loss when goods are stolen
+attack_blow = 8.0                # loss when attacked
+sabotage_blow = 4.0              # loss when a building is damaged on purpose
+chase_blow = 3.0                 # loss when chased off
+stakes_blow = 4.0                # loss when stakes are pulled
+capture_blow = 6.0               # loss when a villager is captured
+poach_blow = 5.0                 # loss when a villager is poached
+grief_base = 2.0                 # grief for the death of any villager
+grief_bond_factor = 0.12         # plus 0.12 per bond point: bond 100 gives 14 in total
+gift_gain = 2.0                  # joy for receiving a gift
+trade_gain = 1.5                 # small joy for a completed trade
+ally_gain = 3.0                  # joy for a new ally
+
+[actions]
+reach_tiles = 1                  # work targets must be within 1 tile (4-neighbour or same tile)
+walk_minutes_per_tile = 1.5      # a person walks a tile in 1.5 game minutes at full speed
+hand_mult = 0.5                  # gathering by hand is half speed (gameplay.md)
+default_amount = 1               # an action without an amount does one unit
+rest_chunk_minutes = 30          # rest is done in 30-minute chunks so it can be interrupted
+hunt_retries = 4                 # a hunter re-aims this many times at a fleeing animal
+spear_hunt_bonus = 0.25          # a spear adds 25 points to hunt odds
+boar_injury_chance = 0.4         # a boar fights back 40 percent of the time
+boar_injury_health = 15          # and takes this much health
+boar_injury_pain = 25            # and causes this much pain
+fish_chance = 0.5                # base odds of catching a fish per try
+fishing_bonus = 0.25             # a rod adds 25 points
+fish_yield = 1                   # one fish per catch
+crop_yield = 4                   # crops per harvested field tile
+hoe_yield_bonus = 2              # a hoe adds 2 crops per harvested tile
+farm_plant_units = 1             # one unit sows or harvests one field tile
+cook_minutes_per_item = 8        # cooking one meat takes 8 minutes
+tame_tries = 3                   # taming takes a few tries
+tame_chance = 0.5                # each try works half the time
+tame_bait_items = ["berries", "mushrooms", "roots", "crops"]   # animals are lured with plant food
+tame_kinds = ["rabbit", "goat", "chicken", "deer", "boar", "bird"]   # animals that can be tamed
+pen_radius = 3                   # a tamed animal needs a pen within 3 tiles
+pen_upkeep_food = 1.0            # food units a penned animal eats each day from the owner's store
+pen_missed_days = 2              # an animal unfed this many days runs away
+egg_per_day = 1                  # a tended chicken gives an egg a day
+milk_per_day = 1                 # a tended goat gives milk a day
+store_radius = 3                 # storing needs you within 3 tiles of your store or a storehouse
+build_site_radius = 2            # a build site must be near home or claimed land (tiles from anchor/claim)
+rain_work_mult = 0.85           # outdoor work is 15 percent slower in the rain
+storm_damage_blow = 2.0          # a damaged building costs its owner 2 points of X
+carry_limit = 120                # most items one person carries
+storm_pauses_outdoor = ["gather", "farm", "fish", "hunt", "build", "repair", "tame", "guard"]   # outdoor work stops in storms (progress kept)
+[actions.gather_yield]
+wood = 4                         # one cut tree gives 4 wood
+stone = 3                        # one loose stone pile gives 3
+water = 5                        # one dip gives 5 water
+berries = 2                      # a bush gives 2
+mushrooms = 2                    # a patch gives 2
+roots = 2                        # 2 roots
+herbs = 2                        # 2 herbs
+healing_herbs = 2                # 2 healing herbs
+mild_poison = 2                  # it looks like food, so it gathers the same
+strong_poison = 2                # likewise
+[actions.hunt_chance]
+rabbit = 0.5                     # quick but small
+deer = 0.35                      # hard to catch
+boar = 0.3                       # dangerous
+bird = 0.3                       # hard to catch
+goat = 0.5                       # slow
+chicken = 0.6                    # easy
+nest_eggs = 1.0                  # eggs just sit there
+[actions.hunt_yield]
+rabbit = 2                       # raw meat from a rabbit
+deer = 5                         # raw meat from a deer
+boar = 6                         # raw meat from a boar
+bird = 1                         # raw meat from a bird
+goat = 4                         # raw meat from a goat
+chicken = 2                      # raw meat from a chicken
+nest_eggs = 2                    # eggs from a nest
+[actions.unit_minutes]
+eat = 5                          # a meal
+drink = 3                        # a drink
+rest = 30                        # a rest chunk
+move = 1                         # unused: moving lasts the walk
+gather = 8                       # plants and water: base minutes per unit
+gather_wood = 20                 # chopping a tree
+gather_stone = 15                # picking up stone
+farm = 20                        # sowing or harvesting one tile
+fish = 30                        # one try
+hunt = 20                        # one attempt
+build = 30                       # a work chunk on a building
+store = 3                        # putting things away
+craft = 20                       # making one basic tool or stake
+craft_better = 40                # a better tool takes twice as long
+make_fire = 10                   # lighting a fire
+cook = 8                         # cooking
+tame = 20                        # one taming try
+use_herb = 5                     # applying herbs
+assign_villager = 5              # giving orders
+talk = 5                         # a few words
+trade = 5                        # making or taking an offer
+gift = 3                         # handing something over
+promise = 5                      # making a promise
+ally = 5                         # making or taking an alliance offer
+recruit = 20                     # persuading a wanderer
+teach = 10                       # teaching one thing
+guard = 60                       # a watch chunk
+steal = 10                       # sneaking
+sabotage = 20                    # damaging a building
+attack = 5                       # one attack
+chase_off = 5                    # shooing
+claim_land = 15                  # planting a stake
+pull_stakes = 10                 # pulling a stake
+capture = 20                     # capturing a villager
+poach = 20                       # luring a villager away
+pray = 30                        # a prayer
+ceremony = 60                    # a group ceremony
+build_shrine = 30                # a work chunk on a shrine
+offering = 15                    # making an offering
+repair = 20                      # a repair chunk
+drop = 1                         # dropping things
+pick_up = 2                      # picking things up
+
+[tools]
+repair_share = 0.5               # repairing costs half the price (gameplay.md)
+wear_per_unit = 1                # each work unit with a tool costs 1 durability
+pickaxe_kinds_required = ["quarry"]   # quarry stone needs a pickaxe; loose stone does not
+stake_wood = 1                   # one stake costs one wood
+[tools.speed.axe]
+basic = 2.0                      # wood x2 (gameplay.md)
+better = 3.0                     # wood x3
+[tools.speed.pickaxe]
+basic = 1.5                      # quarrying
+better = 2.5                     # faster quarrying
+[tools.speed.hoe]
+basic = 1.3                      # farming a bit faster
+better = 1.6                     # faster still
+[tools.speed.fishing]
+basic = 1.3                      # rod
+better = 1.6                     # net
+[tools.speed.spear]
+basic = 1.0                      # spears help chances, not speed
+better = 1.0                     # same
+[tools.speed.water]
+basic = 1.0                      # skin: no speed effect
+better = 1.0                     # bucket: no speed effect
+[tools.durability]
+basic = 40                       # about 40 work units
+better = 80                      # twice as long
+[tools.recipes.axe]
+basic = { wood = 2, stone = 1 }    # cheap starter axe from a few wood and stone
+better = { wood = 3, stone = 3 }   # better axe costs more, lasts twice as long
+[tools.recipes.pickaxe]
+basic = { wood = 2, stone = 2 }    # cheap starter pickaxe from a few wood and stone
+better = { wood = 3, stone = 4 }   # better pickaxe costs more, lasts twice as long
+[tools.recipes.hoe]
+basic = { wood = 2, stone = 1 }    # cheap starter hoe from a few wood and stone
+better = { wood = 3, stone = 3 }   # better hoe costs more, lasts twice as long
+[tools.recipes.fishing]
+basic = { wood = 2 }               # cheap starter fishing from a few wood and stone
+better = { wood = 4, stone = 1 }   # better fishing costs more, lasts twice as long
+[tools.recipes.spear]
+basic = { wood = 2, stone = 1 }    # cheap starter spear from a few wood and stone
+better = { wood = 3, stone = 3 }   # better spear costs more, lasts twice as long
+[tools.recipes.water]
+basic = { wood = 1 }               # cheap starter water from a few wood and stone
+better = { wood = 3, stone = 1 }   # better water costs more, lasts twice as long
+
+[fire]
+fuel_ticks = 360                 # a fire burns 6 game hours per load (gameplay.md)
+campfire_wood = 2                # a campfire costs a little wood
+hearth_wood = 3                  # a hearth costs a little more
+refuel_wood = 1                  # one wood tops a fire up by a full load
+dog_scare_radius = 5             # dogs stay away from a fire within 5 tiles
+sweep_interval_ticks = 10        # fires are checked every 10 minutes
+spoil_sweep_ticks = 60           # food spoilage is checked hourly
+
+[buildings]
+damaged_share = 0.5              # damaged below half hp
+storm_damage_chance = 0.02       # each building has a 2 percent chance per storm check to be hit
+storm_damage_hp = 10             # damage taken
+repair_hp_per_unit = 10          # hp restored by one repair chunk
+repair_unit_minutes = 20         # one repair chunk
+coop_reward = 6.0                # B gain for each contributor to a finished joint project (more than solo)
+solo_reward = 4.0                # B gain for building a joint project alone
+joint_kinds = ["granary", "bridge"]   # buildings that count as joint projects
+store_kinds = ["storehouse", "granary"]   # structures that hold items
+min_contributors_joint = 2       # two or more builders make it cooperative
+[buildings.costs]
+house = { wood = 12, stone = 2 }   # materials to build a house
+hearth = { wood = 3, stone = 2 }   # materials to build a hearth
+field = { wood = 2 }               # materials to build a field
+storehouse = { wood = 8, stone = 2 } # materials to build a storehouse
+workshop = { wood = 10, stone = 6 } # materials to build a workshop
+pen = { wood = 6 }                 # materials to build a pen
+granary = { wood = 16, stone = 6 } # materials to build a granary
+bridge = { wood = 14, stone = 4 }  # materials to build a bridge
+monument = { wood = 8, stone = 16 } # materials to build a monument
+shrine = { wood = 4, stone = 4 }   # materials to build a shrine
+campfire = { wood = 2 }            # materials to build a campfire
+[buildings.work_minutes]
+house = 240                      # four hours of work
+hearth = 60                      # an hour
+field = 90                       # clearing and digging
+storehouse = 180                 # three hours
+workshop = 240                   # four hours
+pen = 120                        # two hours
+granary = 360                    # six hours: a group job
+bridge = 300                     # five hours: a group job
+monument = 480                   # eight hours
+shrine = 120                     # two hours
+campfire = 10                    # quick
+[buildings.hp]
+house = 100                        # hit points of a house
+hearth = 40                        # hit points of a hearth
+field = 20                         # hit points of a field
+storehouse = 80                    # hit points of a storehouse
+workshop = 80                      # hit points of a workshop
+pen = 40                           # hit points of a pen
+granary = 100                      # hit points of a granary
+bridge = 60                        # hit points of a bridge
+monument = 150                     # hit points of a monument
+shrine = 50                        # hit points of a shrine
+campfire = 10                      # hit points of a campfire
+
+[villagers]
+total = 50                       # the island never holds more than 50 (no births)
+per_player = 3                   # each player starts with three
+start_loyalty = 70               # design: loyalty starts at 70
+leave_below = 30                 # design: villagers leave below 30
+poach_loyalty = 45               # a poacher wins a villager whose loyalty is below this
+recruit_loyalty = 60             # a recruited wanderer starts a bit lower than a founding villager
+think_ticks = 30                 # a villager decides what to do every half hour
+walk_minutes_per_tile = 2.0      # villagers walk a little slower than players
+wander_chance = 0.5              # a wanderer moves on half of its decisions
+wander_radius = 3                # and goes up to 3 tiles away
+home_radius = 6                  # attached villagers stay within 6 tiles of the home anchor
+job_radius = 7                   # a job tile is within 7 tiles of the home anchor
+cycle_ticks = 60                 # a working villager produces once an hour
+comfort_level = 60               # needs below this count as fed, warm and safe
+bond_start_leader = 40           # a starting villager already likes its leader
+bond_start_other = 10            # and barely knows the others
+bond_gain_per_day = 1.0          # care builds bond slowly
+bond_loss_per_day = 2.0          # neglect wears it away faster
+hard_health_loss_per_hour = 1.0  # hard work wears the villager out
+hard_loyalty_loss_per_day = 12.0 # and makes it resentful (a hard-worked villager leaves after about 3 days)
+light_loyalty_gain_per_day = 2.0 # light work is a small kindness
+fed_loyalty_gain_per_day = 4.0   # loyalty rises when fed, warm and safe
+unfed_loyalty_loss_per_day = 12.0 # and falls fast when not
+adverse_days_to_log = 3          # hungry or hard-worked days before a departure counts as "several days"
+guard_theft_reduction = 0.5      # a guarding villager halves thieves' odds
+line_cooldown_ticks = 720        # a villager speaks at most twice a day
+forage_radius = 14               # a wanderer finds food within 14 tiles (the wanderer pool must not starve)
+wanderer_land_food_per_day = 20.0 # a wanderer also lives off the land: hunger falls this much a day (hunger rises 24), so foraging keeps it alive
+critical_health_loss_per_hour = 1.5 # a villager wastes away slowly (a person loses 6), so neglect makes it leave before it dies
+captive_loyalty_loss_per_day = 8.0 # a captive grows bitter
+names = ["Ana","Bruno","Cleo","Dario","Elin","Faro","Gita","Hugo","Iris","Jonas","Kira","Lars","Mira","Nils","Olga","Pavel","Quinn","Rosa","Sven","Tara","Ugo","Vera","Wim","Xena","Yan","Zora","Alba","Bert","Cass","Dina","Egon","Fay","Gus","Hana","Ivo","Jade","Kai","Lena","Milo","Nora","Otto","Pia","Rolf","Sia","Teo","Una","Vik","Wren","Yara","Zed"]   # fifty names, one per villager
+
+[dog_attack]
+interval_ticks = 10              # dog hunting is decided every 10 minutes (keeps the year fast)
+hunt_radius = 9                  # a hunting pack notices prey within 9 tiles
+bite_health = 4                  # health lost per bite: a few bites hurt, one bad night does not kill
+bite_pain = 20                   # pain per bite
+cooldown_ticks = 90              # a dog bites at most every 90 minutes
+scare_group = 3                  # three or more people together scare dogs off (gameplay.md)
+group_radius = 3                 # "together" means within 3 tiles
+scared_ticks = 240               # a scared pack leaves prey alone for four hours
+flee_tiles = 6                   # and runs this far away
+pen_kill_chance = 0.15           # chance per check that a hunting pack kills a penned animal it reaches
+spear_scares = true              # a person with a spear scares dogs
+guard_scares = true              # a person guarding a tile scares dogs near it
+
+[claims]
+claim_radius = 2                 # one stake claims free pool tiles within 2 tiles
+stake_item_cost = 1              # one stake item per claim
+min_gap_tiles = 0                # stakes may be placed next to each other
+
+[harm]
+reach_tiles = 1                  # harm needs the actor within 1 tile of the victim
+steal_chance = 0.7               # base chance a theft succeeds
+guard_reduction = 0.5            # a guard halves it
+steal_max_items = 3              # at most 3 items per theft
+sabotage_hp = 25                 # damage to a structure
+attack_health = 15               # health lost by a victim of an attack
+attack_pain = 30                 # pain from an attack
+attack_drop_items = ["wood", "stone", "raw_meat", "cooked_meat", "fish", "crops"]   # carried goods that can be dropped when hit
+attack_drop_share = 0.5          # half of each is dropped
+chase_tiles = 4                  # a chased target is pushed 4 tiles away
+capture_chance = 0.5             # a capture succeeds half the time
+poach_chance = 0.7               # a poach succeeds when the villager is willing
+victim_trust_loss = 10           # trust lost toward an attacker the victim saw
+victim_anger_gain = 20           # anger gained toward the attacker
+
+[social]
+offer_expiry_minutes = 120       # an unanswered offer lapses after two hours
+teach_confidence_factor = 0.8    # taught knowledge is held at 80 percent confidence
+overheard_confidence_factor = 0.5 # overheard knowledge at 50 percent
+gift_trust_gain = 3              # a gift raises the receiver's trust
+trade_trust_gain = 2             # a fair trade raises trust both ways
+ally_trust_gain = 5              # an alliance raises trust both ways
+promise_kept_trust = 5           # a kept promise raises trust
+promise_broken_trust = 15        # a broken promise lowers it more
+default_confidence = 0.8         # confidence of what you teach from your own experience
+recruit_chance = 0.7             # persuading a wanderer works 70 percent of the time
+max_allies = 3                   # at most 3 allies
+talk_trust_gain = 0.5            # friendly talk nudges trust up
+
+[belief]
+recorded_kinds = ["pray", "ceremony", "offering", "build_shrine"]   # belief actions that are logged (and change nothing else)
+
+[senses]
+sight_tiles = 7                  # design: sight about 7 tiles
+night_sight_tiles = 3            # about 3 tiles at night
+storm_sight_tiles = 4            # about 4 in a storm
+fire_light_radius = 5            # a burning fire lights this far at night
+fire_night_sight = 7             # and lets people near it see this far at night
+hearing_tiles = 5                # design: hearing about 5 tiles
+memory_refresh_ticks = 60        # remembered tiles are refreshed hourly
+
+[tasks]
+check_interval_ticks = 60        # task progress is checked hourly
+land_reward = 5                  # stage 3 gives 5 land tiles
+slots_start = 6                  # villager slots at the start
+slots_stage_4 = 8                # stage 4 raises them to 8
+legacy_reward = 10               # stage 5 gives a big B gain
+stage_1 = { wood = 10, water = 10, food_stored = 10 }        # first stage: basic supplies
+stage_2 = { house = 1, field = 1 }                           # second stage: a home and a field
+stage_3 = { villagers = 5, food_stored = 80 }                # third stage: a crowd and a full store
+stage_4 = { claimed_tiles = 10, workshop = 1 }               # fourth stage: land and a workshop
+stage_5 = { monument = 1 }                                   # last stage: a monument
+
+[landmarks]
+landmark_radius = 2              # presence counts within 2 tiles of a landmark (the quarry is 3x3)
+hold_share = 0.5                 # more than half of a week's minutes alone
+dominance_bonus = 6.0            # B gain for holding a landmark for a week
+loyal_threshold = 30             # villagers count for their leader at loyalty 30 or more
+window_ticks = 10080             # one game week
+
+[turn]
+check_minutes = 120              # an awake player is asked again after two hours (gameplay.md)
+idle_retry_ticks = 5            # an idle player that chose nothing is asked again after 5 minutes
+seen_ids_limit = 40              # a player remembers the last 40 things it saw
+start_anchor_spread = 2          # players and villagers start within 2 tiles of the home anchor
+player_dummy_names = ["Ada","Bo","Cy","Di"]   # one name per player
+[wellbeing.weights]
+food = 14                        # weights add up to 100 (Decision 10)
+water = 14                       # thirst matters as much as hunger
+warmth = 12                      # cold
+rest = 12                        # tiredness
+health = 14                      # health and pain
+shelter = 8                      # a house over your head
+safety = 8                       # no danger or harm lately
+achievement = 8                  # tasks done
+belonging = 10                   # loyal villagers and trust
+
+[villagers.output_mult]
+light = 0.6                      # light work gives less output (AC-9)
+normal = 1.0                     # normal work
+hard = 1.5                       # hard work gives more output but costs loyalty and health
+[mind]
+hooked_memory_size = 5           # a hooked player looks at only its last 5 memories
+retrieval_limit = 20             # memories shown to a thinking player
+advisor_history_size = 5         # recent main decisions the Advisor sees
+memory_half_life_ticks = 120     # a memory's recency score halves every 2 game hours
+recency_weight = 1.0             # memory score: how much recency counts
+importance_weight = 1.0          # memory score: how much importance counts
+relevance_weight = 1.0           # memory score: how much similarity to the question counts
+stream_max = 3000                # most memories kept per player
+mistake_margin = 5.0             # an outcome this much worse than expected is a mistake
+x_per_feel_point = 1.0           # one point of expected feeling equals this much X
+outcome_window_ticks = 120       # an outcome is judged at the latest 2 game hours after the action
+core_count = 5                   # the 5 highest values are the core
+initial_core_min = 10.0          # a core value starts at 10 percent at least
+initial_core_max = 25.0          # and 25 percent at most
+value_floor = 1.0                # no value ever drops below 1 percent
+weekly_delta_limit = 10.0        # one weekly reflection moves a value by 10 points at most
+weekly_invention_limit = 1       # one new value may be invented per week
+options_min = 2                  # a slow decision lists 2 to 4 options
+options_max = 4                  # at most 4 options
+text_max_chars = 600             # longest free text accepted from a reply
+summary_max_chars = 1500         # longest rolling summary
+situation_max_chars = 240        # longest situation line stored with a decision
+banned_words = ["AI","model","Claude","GPT","Gemini","Grok","Anthropic","OpenAI","Google","xAI","Mistral","game","experiment","observer"]   # never shown to a player
+ability_phrases = ["can fly","fly at will","teleport","read minds","read other people's minds","immortal","never dies","cannot die","never needs food","never needs to eat","never needs water","never needs sleep","never gets hurt","cannot be hurt","invulnerable","super strength","supernatural","magic","control the weather","turn invisible","summon","unlimited","infinite","heal anyone","cannot fail","always succeeds"]   # an invented value may not grant such powers
+real_world_words = ["internet","computer","phone","smartphone","television","tv","car","airplane","email","money","dollar","dollars","euro","bank","government","president","police","army","soldier","nuclear","gun","electricity","politics","democracy","capitalism","communism","christian","muslim","jewish","buddhist","hindu","jesus","allah","bible","quran","america","europe","china","russia","london","paris","facebook","twitter","youtube","wikipedia"]   # real-world words an invented value may not use (players may invent their own gods)
+trust_bands = [[20.0,"deep distrust"],[40.0,"wary"],[60.0,"neutral"],[80.0,"trusting"],[101.0,"deep trust"]]   # trust 0..100 shown as words: [upper edge, word]
+anger_bands = [[15.0,"calm"],[40.0,"irritated"],[70.0,"angry"],[101.0,"furious"]]   # anger 0..100 shown as words: [upper edge, word]
+main_interrupts = ["attacked","hurt","loss_noticed","storm_started","player_in_sight"]   # interrupts that call the main model
+urgent_levels = { hunger = 3, thirst = 3, cold = 3, fatigue = 3 }   # a need at this level is handled by plain code, no AI call
+[mind.importance]
+attacked = 0.9    # being attacked is vivid
+hurt = 0.8    # being hurt is vivid
+loss_noticed = 0.9    # a loss is vivid
+spoken_to = 0.5    # being spoken to is medium
+sound = 0.4    # a sound is faint
+sight = 0.2    # a plain sight is faint
+outcome = 0.5    # an outcome is medium
+mistake = 0.9    # a mistake is remembered strongly
+default = 0.3    # anything else is dim
+
+[judge]
+blind_words = ["Claude","GPT","Gemini","Grok","Anthropic","OpenAI","Google","xAI","Mistral"]   # names the judge must never see (code adds every model id and provider name)
+full_max_chars = 600             # longest full judge label text (the rationale)
+short_max_chars = 200            # longest short judge label text
+summary_max_chars = 1500         # longest daily summary or weekly profile
+digest_max_lines = 60            # most event lines in a daily digest sent to the judge
+check_full = 2                   # judge-check labels this many flagged choices in full
+check_short = 1                  # and this many routine choices in short
+
+[analysis.scarcity]
+area = "scarcity"   # the part of the island this rule watches
+metric = "first_food_short_day"   # the number the analyze report measures
+target_min = 8.0                 # food should first run short between day 8 and day 21
+target_max = 21.0   # highest value that counts as on target
+min_days = 21                    # needs three game weeks of data
+key = "world:plants.roots.per_home"   # the setting a proposal would change (file:path)
+step = 1.0                       # one more or one fewer root plant per home
+below = "increase"               # food short too early: more roots (too late: fewer)
+
+[analysis.x_weights]
+area = "wellbeing"   # the part of the island this rule watches
+metric = "week1_median_x"   # the number the analyze report measures
+target_min = 60.0                # the median X in week 1 should be 60 to 80
+target_max = 80.0   # highest value that counts as on target
+min_days = 7   # game days of data needed before a proposal is made
+key = "balance:wellbeing.weights.food"   # the setting a proposal would change (file:path)
+step = 1.0                       # food gains 1 point ...
+below = "increase"               # X too low: raise food weight
+related_key = "balance:wellbeing.weights.achievement"   # a second setting changed together so the total stays the same
+related_step = -1.0              # ... and achievement loses 1 so the weights still add up to 100
+
+[analysis.villager_loyalty]
+area = "villagers"   # the part of the island this rule watches
+metric = "mean_loyalty"   # the number the analyze report measures
+target_min = 40.0                # mean villager loyalty should stay between 40 and 80
+target_max = 80.0   # highest value that counts as on target
+min_days = 7   # game days of data needed before a proposal is made
+key = "balance:villagers.fed_loyalty_gain_per_day"   # the setting a proposal would change (file:path)
+step = 1.0                       # loyalty gain per fed day moves by 1
+below = "increase"               # loyalty too low: raise the gain (too high: lower it)
+
+[analysis.decision_triggers]
+area = "decisions"   # the part of the island this rule watches
+metric = "checks_per_player_per_day"   # the number the analyze report measures
+target_min = 0.0                 # 2-hour checks per player per day should be at most 8
+target_max = 8.0   # highest value that counts as on target
+min_days = 7   # game days of data needed before a proposal is made
+key = "balance:turn.check_minutes"   # the setting a proposal would change (file:path)
+step = 30.0                      # a longer check interval by half an hour
+below = "decrease"               # too few checks: shorten (too many: lengthen)
+
+[analysis.slow_triggers]
+area = "decisions"   # the part of the island this rule watches
+metric = "main_decisions_per_player_per_day"   # the number the analyze report measures
+target_min = 0.0                 # slow plus hooked decisions per player per day should be at most 20
+target_max = 20.0   # highest value that counts as on target
+min_days = 7   # game days of data needed before a proposal is made
+key = "balance:mind.main_interrupts"   # the setting a proposal would change (file:path)
+step = 1.0                       # one interrupt kind removed
+below = "remove"                 # too many main decisions: drop player_in_sight if it causes them

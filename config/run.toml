@@ -1,0 +1,71 @@
+# Run settings.
+
+seed = 1                  # default seed; --seed overrides it
+resume_ticks = 1440       # how many ticks "resume" runs when --ticks is not given
+autosave_interval = 360   # a checkpoint is saved every 360 game minutes (6 game hours) so a crash loses little
+event_batch = 500         # events are written to the database in batches of this size
+runs_dir = "runs"             # where run databases are written
+spend_cap_usd = 100.0     # the money limit for one run, shown on the Spend tab (Tim's budget)
+spend_warning_share = 0.8 # the top bar warns once spending reaches this share of the cap
+
+[players]
+controller = "dummy"      # who plays: dummy (needs-only rules), scripted (test scenario) or none (ecology only)
+
+[view]
+seconds_per_tick = 0.36   # real seconds per game minute at speed 1
+speed = 1.0
+fps = 30
+max_scale = 4             # largest whole-number zoom
+scroll_tiles = 4          # tiles moved per arrow-key press
+window_width = 1280
+window_height = 800
+min_visible_tiles = 36    # the zoom is chosen so at least this many tiles fit on the short side
+max_speed = 512.0         # fastest speed the +/- keys can reach
+window_margin = 80        # pixels left free around the window (taskbar, title bar)
+panel_width = 480         # width of the right-hand tab panel in pixels at ui scale 1
+top_bar_height = 48       # height of the top bar in pixels at ui scale 1
+font_size = 16            # text size of the monogram font at ui scale 1 (the font is a pixel font)
+ui_reference_height = 800 # ui scale = window height // this, so a tall screen gets bigger text
+page_size = 100           # rows per page on the paged tabs (Chats, Choice points, World history)
+max_tick_work_ms = 15.0   # most real milliseconds of game ticks per drawn frame, so keys stay responsive
+font_path = "assets/fonts/monogram/monogram/ttf/monogram.ttf"  # the pixel font used for all text
+flash_seconds = 4.0       # real seconds an event marker stays on the map (long enough to notice, short enough not to pile up)
+status_seconds = 3.0      # real seconds a short note ("Saved ...") stays in the top bar
+minimap_size = 160        # mini-map side in pixels at ui scale 1 (a fifth of the map width)
+minimap_margin = 8        # gap between the mini-map and the map corner in pixels at ui scale 1
+bubble_padding = 2        # space around the picture or word in an activity bubble, in sprite pixels
+graph_width = 220         # width of a graph in pixels at ui scale 1 (fits the 480 px panel with margins)
+graph_height = 60         # height of a graph in pixels at ui scale 1
+inspector_height = 300    # height of the Inspector block at ui scale 1 (room for about 18 rows)
+ui_scale = 0              # 0 = automatic from the window height, otherwise 1 to 3
+display_size = "fit"      # window size: fit (usable desktop), 1280x800, 1600x1000, 1920x1080 or fullscreen
+bubbles = "all"           # activity bubbles: all, players or off
+panel_visible = true      # the right-hand panel starts shown
+minimap_visible = true    # the mini-map starts shown
+
+[ai]
+backend = "fake"                 # the only backend in Phase 4: a pretend AI that costs nothing
+seats = []                       # which player numbers (1-4) are AI; the rest are rule-based
+cheap = false                    # true = the main decisions use the cheaper helper model
+new_ticks = 10080                # how long "new" plays when it has an AI seat (one game week)
+format_retries = 1               # a bad reply is asked again once
+network_retries = 3              # a failed connection is retried 3 times, then the run pauses
+retry_wait_seconds = [2.0, 8.0, 30.0]   # waits before each retry
+sleep_gap_seconds = 300.0        # a failed call that took longer than this means the laptop slept
+call_timeout_seconds = 120.0     # most real seconds one AI call may take
+fallback_rest_minutes = 5        # a player whose reply failed rests this long
+max_parallel = 8                 # most AI calls in flight at once
+wait_hook_seconds = 0.05         # while waiting for replies the window is redrawn this often
+chars_per_token = 4              # rough size estimate used to reserve money before a call
+break_character_phrases = ["as an ai", "language model", "i am an assistant", "i'm an ai"]
+framing_tokens = 256             # extra tokens allowed per call when reserving money (wrapper text a provider adds)
+# end_tick (not set here) is a planned last tick; a profile such as the pilot pins it into the run
+
+[profiles.pilot]                 # all four players on their cheap models for a few game weeks
+seats = [1, 2, 3, 4]
+cheap = true
+weeks = 3                        # 3 game weeks: the food-scarcity window runs to day 21
+
+[profiles.launch]                # the real run: the four main models
+seats = [1, 2, 3, 4]
+cheap = false

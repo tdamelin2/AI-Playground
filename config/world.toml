@@ -1,0 +1,254 @@
+# World layout and what exists on the island. Rates and timings live in balance.toml.
+
+[clock]
+ticks_per_day = 1440      # one tick is one game minute
+days_per_week = 7
+days_per_season = 14      # 2 weeks per season, 4 seasons: a year is 80,640 ticks
+night_start_hour = 20     # night runs from 20:00 ...
+night_end_hour = 6        # ... to 06:00
+dawn_minutes = 60         # light fades in over the hour after night ends (06:00-07:00)
+dusk_minutes = 60         # light fades out over the hour before night starts (19:00-20:00), so it is fully dark when night begins
+
+[map]
+width = 80
+height = 80
+coast_width = 2           # water ring around the island
+sand_width = 1            # beach just inside the coast
+home_size = 18            # each home plot is 18 x 18
+home_margin = 4           # distance from the map edge to a home plot (must exceed coast + sand)
+centre_size = 26          # the contested centre is 26 x 26, in the middle
+buffer_forest_clumps = 10 # forest patches in the neutral buffer land
+buffer_forest_radius = 3
+buffer_forest_density = 0.8
+buffer_rocky_tiles = 12   # loose-stone tiles in the buffer
+buffer_stray_trees = 30
+
+[home]
+tree_tiles = 36           # the small forest of a home plot
+spring_tiles = 1
+farmland_width = 4
+farmland_height = 3
+rocky_tiles = 3
+
+[centre]
+forest_clumps = 9         # the large forest
+forest_radius = 5
+forest_density = 0.85
+farmland_width = 8        # the best farmland
+farmland_height = 6
+lake_width = 7
+lake_height = 5
+quarry_size = 3           # the quarry is a 3 x 3 block
+rocky_tiles = 8
+
+[land]
+pool_zones = ["buffer", "centre"]   # zones whose free land tiles form the unclaimed-land pool
+
+[terrain]
+# Water tiles cannot be walked on. Every other terrain has a cost for entering it.
+impassable = ["spring", "lake", "coast"]
+
+[terrain.cost]
+grass = 1.0
+sand = 1.2
+tree = 2.0
+stump = 1.3
+farmland_empty = 1.1
+farmland_planted = 1.1
+farmland_growing = 1.1
+farmland_ready = 1.1
+farmland_failed = 1.1
+rocky = 1.5
+rocky_depleted = 1.0
+quarry = 1.5
+quarry_depleted = 1.0
+
+[weather]
+interval_ticks = 720      # a new weather draw every half day (divides the season length)
+
+[weather.odds.spring]
+clear = 0.55
+rain = 0.35
+storm = 0.10
+drought = 0.0
+
+[weather.odds.summer]
+clear = 0.60
+rain = 0.15
+storm = 0.10
+drought = 0.15
+
+[weather.odds.autumn]
+clear = 0.50
+rain = 0.35
+storm = 0.15
+drought = 0.0
+
+[weather.odds.winter]
+clear = 0.50
+rain = 0.30
+storm = 0.20
+drought = 0.0
+
+[dogs]
+pack_min = 2
+pack_max = 4
+initial_packs_centre = 2
+initial_packs_buffer = 2
+[plants.berries]
+seasons = ["summer","autumn"]
+per_home = 3
+per_centre = 10
+per_buffer = 14
+
+[plants.mushrooms]
+seasons = ["spring","autumn"]
+per_home = 2
+per_centre = 8
+per_buffer = 12
+
+[plants.roots]
+seasons = ["spring","summer","autumn","winter"]
+per_home = 3
+per_centre = 8
+per_buffer = 12
+
+[plants.herbs]
+seasons = ["spring","summer","autumn"]
+per_home = 2
+per_centre = 6
+per_buffer = 10
+
+[plants.healing_herbs]
+seasons = ["spring","summer"]
+per_home = 1
+per_centre = 4
+per_buffer = 6
+
+[plants.mild_poison]
+seasons = ["spring","summer","autumn"]
+per_home = 1
+per_centre = 4
+per_buffer = 8
+
+[plants.strong_poison]
+seasons = ["summer","autumn"]
+per_home = 1
+per_centre = 3
+per_buffer = 6
+
+[animals.rabbit]
+habitat = ["grass","sand","tree","stump"]
+breed_seasons = ["spring","summer","autumn"]
+
+[animals.rabbit.initial]
+home = 3
+centre = 10
+buffer = 14
+
+[animals.rabbit.capacity]
+home = 10
+centre = 30
+buffer = 60
+
+[animals.deer]
+habitat = ["grass","sand","tree","stump"]
+breed_seasons = ["spring","summer"]
+
+[animals.deer.initial]
+home = 1
+centre = 6
+buffer = 10
+
+[animals.deer.capacity]
+home = 3
+centre = 14
+buffer = 24
+
+[animals.boar]
+habitat = ["grass","tree","stump"]
+breed_seasons = ["spring","autumn"]
+
+[animals.boar.initial]
+home = 0
+centre = 4
+buffer = 6
+
+[animals.boar.capacity]
+home = 0
+centre = 8
+buffer = 12
+
+[animals.fish]
+habitat = ["lake","coast"]
+breed_seasons = ["spring","summer"]
+
+[animals.fish.initial]
+home = 0
+centre = 12
+buffer = 16
+
+[animals.fish.capacity]
+home = 0
+centre = 30
+buffer = 40
+
+[animals.bird]
+habitat = ["grass","sand","tree","stump"]
+breed_seasons = ["spring","summer"]
+
+[animals.bird.initial]
+home = 2
+centre = 6
+buffer = 10
+
+[animals.bird.capacity]
+home = 6
+centre = 16
+buffer = 30
+
+[animals.nest_eggs]
+habitat = ["grass","tree"]
+breed_seasons = ["spring"]
+parent_kind = "bird"
+present_seasons = ["spring"]
+
+[animals.nest_eggs.initial]
+home = 1
+centre = 3
+buffer = 5
+
+[animals.nest_eggs.capacity]
+home = 3
+centre = 8
+buffer = 12
+
+[animals.goat]
+habitat = ["grass","sand","rocky"]
+breed_seasons = ["spring","summer"]
+
+[animals.goat.initial]
+home = 0
+centre = 4
+buffer = 4
+
+[animals.goat.capacity]
+home = 0
+centre = 8
+buffer = 10
+
+[animals.chicken]
+habitat = ["grass","sand"]
+breed_seasons = ["spring","summer","autumn"]
+
+[animals.chicken.initial]
+home = 2
+centre = 4
+buffer = 6
+
+[animals.chicken.capacity]
+home = 6
+centre = 14
+buffer = 20
+
+

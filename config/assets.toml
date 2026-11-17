@@ -1,0 +1,806 @@
+# Asset mapping: every docs/gameplay.md asset-list item -> a tile in one of two sheets, or `code`.
+# Tile (col,row) is read at x = col*17, y = row*17 in its sheet (16 px tile + 1 px gap).
+# Sources: "kenney" (Kenney 1-Bit Pack, colour sheet), "tiny_creatures" (Kenney Tiny Creatures
+# tilemap, used for the wild animals) and "code" (drawn by ai_island.observer.code_art).
+# Palette "color" shows the colours; "mono" is the old black-and-white look (a switch, not a fallback).
+
+palette = "color"
+
+[sheets.kenney]
+path = "assets/kenney_1bit/Tilesheet/colored-transparent.png"
+tile_size = 16
+gap = 1
+columns = 49
+rows = 22
+
+[sheets.tiny_creatures]
+path = "assets/tiny_creatures/tiny-creatures/Tilemap/tilemap.png"
+tile_size = 16
+gap = 1
+columns = 10
+rows = 18
+
+# Every key below that is drawn in code is also listed in [missing] at the end.
+
+# ---------------------------------------------------------------- terrain
+[items.grass]
+source = "code"
+
+[items.sand]
+source = "kenney"
+col = 1
+row = 0
+
+[items.tree]
+source = "kenney"
+col = 0
+row = 1
+
+[items.stump]
+source = "kenney"
+col = 18
+row = 6
+
+[items.spring]
+source = "kenney"
+col = 12
+row = 4
+
+[items.lake]
+source = "kenney"
+col = 8
+row = 5
+
+[items.coast]
+source = "kenney"
+col = 9
+row = 4
+
+[items.farmland_empty]
+source = "kenney"
+col = 16
+row = 0
+
+[items.farmland_planted]
+source = "kenney"
+col = 13
+row = 6
+
+[items.farmland_growing]
+source = "kenney"
+col = 14
+row = 6
+
+[items.farmland_ready]
+source = "kenney"
+col = 15
+row = 6
+
+[items.farmland_failed]
+source = "kenney"
+col = 12
+row = 6
+
+[items.rocky]
+source = "kenney"
+col = 3
+row = 0
+
+[items.rocky_depleted]
+source = "kenney"
+col = 2
+row = 0
+
+[items.quarry]
+source = "kenney"
+col = 1
+row = 11
+
+[items.quarry_depleted]
+source = "kenney"
+col = 2
+row = 11
+
+[items.claim_border_1]
+source = "kenney"
+col = 13
+row = 1
+
+[items.claim_border_2]
+source = "kenney"
+col = 14
+row = 1
+
+[items.claim_border_3]
+source = "kenney"
+col = 15
+row = 1
+
+[items.claim_border_4]
+source = "kenney"
+col = 16
+row = 1
+
+[items.boundary_stake]
+source = "kenney"
+col = 0
+row = 7
+
+# Season variants and overlays (code)
+[items.snow]
+source = "code"
+
+[items.drought]
+source = "code"
+
+[items.overlay_night]
+source = "code"
+
+[items.overlay_rain]
+source = "code"
+
+[items.overlay_storm]
+source = "code"
+
+# ---------------------------------------------------------------- plants
+[items.berries]
+source = "kenney"
+col = 20
+row = 5
+
+[items.mushrooms]
+source = "code"
+
+[items.roots]
+source = "kenney"
+col = 34
+row = 20
+
+[items.herbs]
+source = "kenney"
+col = 0
+row = 2
+
+[items.healing_herbs]
+source = "kenney"
+col = 33
+row = 20
+
+[items.mild_poison]
+source = "kenney"
+col = 2
+row = 2
+
+[items.strong_poison]
+source = "code"
+
+# ---------------------------------------------------------------- animals
+# Tiny Creatures (7,17): sitting brown rabbit, ears up (replaces the code drawing).
+[items.rabbit]
+source = "tiny_creatures"
+col = 7
+row = 17
+
+# Tiny Creatures (2,16): stag with antlers, brown and tan.
+[items.deer]
+source = "tiny_creatures"
+col = 2
+row = 16
+
+# Tiny Creatures (0,16): brown boar with a snout and tusk, faces right.
+[items.boar]
+source = "tiny_creatures"
+col = 0
+row = 16
+
+# Tiny Creatures (4,6): orange fish, faces right.
+[items.fish]
+source = "tiny_creatures"
+col = 4
+row = 6
+
+# Tiny Creatures (4,13): wild bird with spread wings (hawk) - reads clearly as a bird at small size.
+[items.bird]
+source = "tiny_creatures"
+col = 4
+row = 13
+
+[items.nest_eggs]
+source = "code"
+
+# Tiny Creatures (2,15): white goat with horns, faces right.
+[items.goat]
+source = "tiny_creatures"
+col = 2
+row = 15
+
+# Tiny Creatures (0,15): white chicken with yellow beak.
+[items.chicken]
+source = "tiny_creatures"
+col = 0
+row = 15
+
+# Tiny Creatures (3,2): grey wolf standing, the closest match to a wild dog.
+[items.wild_dog]
+source = "tiny_creatures"
+col = 3
+row = 2
+
+[items.pen]
+source = "kenney"
+col = 1
+row = 3
+
+# ---------------------------------------------------------------- characters
+[items.player_1]
+source = "kenney"
+col = 25
+row = 0
+
+[items.player_2]
+source = "kenney"
+col = 26
+row = 1
+
+[items.player_3]
+source = "kenney"
+col = 24
+row = 4
+
+[items.player_4]
+source = "kenney"
+col = 28
+row = 1
+
+# Bounded set of villager variants (a villager id picks one of these six).
+[items.villager_1]
+source = "kenney"
+col = 25
+row = 2
+
+[items.villager_2]
+source = "kenney"
+col = 26
+row = 2
+
+[items.villager_3]
+source = "kenney"
+col = 24
+row = 3
+
+[items.villager_4]
+source = "kenney"
+col = 25
+row = 3
+
+[items.villager_5]
+source = "kenney"
+col = 26
+row = 3
+
+[items.villager_6]
+source = "kenney"
+col = 27
+row = 3
+
+# State markers
+[items.marker_sick]
+source = "kenney"
+col = 38
+row = 14
+
+[items.marker_injured]
+source = "kenney"
+col = 41
+row = 10
+
+[items.marker_sleeping]
+source = "code"
+
+[items.marker_grave]
+source = "kenney"
+col = 43
+row = 21
+
+# ---------------------------------------------------------------- structures
+[items.house]
+source = "kenney"
+col = 0
+row = 20
+
+[items.hearth]
+source = "kenney"
+col = 14
+row = 10
+
+[items.field]
+source = "kenney"
+col = 17
+row = 0
+
+[items.storehouse]
+source = "kenney"
+col = 8
+row = 14
+
+[items.workshop]
+source = "kenney"
+col = 10
+row = 14
+
+[items.campfire]
+source = "kenney"
+col = 15
+row = 10
+
+[items.shrine]
+source = "kenney"
+col = 21
+row = 11
+
+[items.offering_spot]
+source = "kenney"
+col = 23
+row = 11
+
+[items.granary]
+source = "kenney"
+col = 12
+row = 14
+
+[items.bridge]
+source = "kenney"
+col = 7
+row = 5
+
+[items.monument]
+source = "kenney"
+col = 44
+row = 21
+
+[items.great_tree]
+source = "kenney"
+col = 4
+row = 2
+
+[items.lake_dock]
+source = "kenney"
+col = 3
+row = 10
+
+# Damaged versions: the normal building with a crack overlay (code).
+[items.damaged_house]
+source = "code"
+
+[items.damaged_hearth]
+source = "code"
+
+[items.damaged_field]
+source = "code"
+
+[items.damaged_storehouse]
+source = "code"
+
+[items.damaged_workshop]
+source = "code"
+
+[items.damaged_pen]
+source = "code"
+
+[items.damaged_campfire]
+source = "code"
+
+[items.damaged_shrine]
+source = "code"
+
+[items.damaged_offering_spot]
+source = "code"
+
+[items.damaged_granary]
+source = "code"
+
+[items.damaged_bridge]
+source = "code"
+
+[items.damaged_monument]
+source = "code"
+
+[items.damaged_great_tree]
+source = "code"
+
+[items.damaged_lake_dock]
+source = "code"
+
+# ---------------------------------------------------------------- item icons
+[items.item_wood]
+source = "kenney"
+col = 26
+row = 11
+
+[items.item_stone]
+source = "kenney"
+col = 5
+row = 2
+
+[items.item_water]
+source = "kenney"
+col = 28
+row = 11
+
+[items.item_raw_meat]
+source = "kenney"
+col = 33
+row = 16
+
+[items.item_cooked_meat]
+source = "code"
+
+[items.item_spoiled_meat]
+source = "code"
+
+[items.item_fish]
+source = "kenney"
+col = 33
+row = 17
+
+[items.item_eggs]
+source = "kenney"
+col = 34
+row = 17
+
+[items.item_milk]
+source = "kenney"
+col = 33
+row = 13
+
+[items.item_berries]
+source = "kenney"
+col = 20
+row = 5
+
+[items.item_mushrooms]
+source = "code"
+
+[items.item_roots]
+source = "kenney"
+col = 34
+row = 20
+
+[items.item_herbs]
+source = "kenney"
+col = 0
+row = 2
+
+[items.item_crops]
+source = "kenney"
+col = 34
+row = 18
+
+[items.item_offering]
+source = "kenney"
+col = 41
+row = 4
+
+# Tools, basic and better
+[items.tool_axe_basic]
+source = "kenney"
+col = 41
+row = 7
+
+[items.tool_axe_better]
+source = "kenney"
+col = 42
+row = 8
+
+[items.tool_pickaxe_basic]
+source = "kenney"
+col = 43
+row = 5
+
+[items.tool_pickaxe_better]
+source = "kenney"
+col = 36
+row = 5
+
+[items.tool_hoe_basic]
+source = "kenney"
+col = 35
+row = 2
+
+[items.tool_hoe_better]
+source = "kenney"
+col = 36
+row = 2
+
+[items.tool_fishing_rod]
+source = "kenney"
+col = 32
+row = 4
+
+[items.tool_fishing_net]
+source = "code"
+
+[items.tool_spear_basic]
+source = "kenney"
+col = 32
+row = 3
+
+[items.tool_spear_better]
+source = "kenney"
+col = 36
+row = 3
+
+[items.tool_water_skin]
+source = "kenney"
+col = 47
+row = 3
+
+[items.tool_bucket]
+source = "kenney"
+col = 46
+row = 3
+
+# ---------------------------------------------------------------- observer-screen concepts
+[items.ui_map]
+source = "kenney"
+col = 32
+row = 15
+
+[items.ui_clock]
+source = "kenney"
+col = 39
+row = 12
+
+[items.ui_season]
+source = "kenney"
+col = 27
+row = 11
+
+[items.ui_pause]
+source = "code"
+
+[items.ui_resume]
+source = "kenney"
+col = 29
+row = 20
+
+[items.ui_speed]
+source = "kenney"
+col = 34
+row = 21
+
+[items.ui_tab_chats]
+source = "kenney"
+col = 35
+row = 15
+
+[items.ui_tab_choice_points]
+source = "kenney"
+col = 37
+row = 13
+
+[items.ui_tab_world_history]
+source = "kenney"
+col = 33
+row = 15
+
+[items.ui_tab_players]
+source = "kenney"
+col = 43
+row = 16
+
+[items.ui_tab_spend]
+source = "kenney"
+col = 35
+row = 16
+
+[items.ui_spend_warning]
+source = "kenney"
+col = 35
+row = 21
+
+[items.ui_paused_indicator]
+source = "code"
+
+[items.ui_autosave_indicator]
+source = "kenney"
+col = 42
+row = 16
+
+[items.ui_font]
+source = "code"
+
+# ---------------------------------------------------------------- items Kenney lacks
+[missing]
+items = [
+    "grass",
+    "snow",
+    "drought",
+    "overlay_night",
+    "overlay_rain",
+    "overlay_storm",
+    "mushrooms",
+    "strong_poison",
+    "nest_eggs",
+    "marker_sleeping",
+    "damaged_house",
+    "damaged_hearth",
+    "damaged_field",
+    "damaged_storehouse",
+    "damaged_workshop",
+    "damaged_pen",
+    "damaged_campfire",
+    "damaged_shrine",
+    "damaged_offering_spot",
+    "damaged_granary",
+    "damaged_bridge",
+    "damaged_monument",
+    "damaged_great_tree",
+    "damaged_lake_dock",
+    "item_cooked_meat",
+    "item_spoiled_meat",
+    "item_mushrooms",
+    "tool_fishing_net",
+    "ui_pause",
+    "ui_paused_indicator",
+    "ui_font",
+]
+
+# ---------------------------------------------------------------- colours (colour mode)
+# Every colour used on a Kenney tile or a code drawing comes from the 8 Kenney palette colours:
+# the 7 opaque colours of colored-transparent.png plus the background of colored.png.
+[colors]
+background = "#472d3c"     # window and off-map colour (Kenney dark plum)
+kenney_palette = ["#472d3c", "#cfc6b8", "#bf7958", "#e6482e", "#3cacd7", "#7a444a", "#38d973", "#f4b41b"]
+code_light = "#cfc6b8"     # replaces white in code drawings (cream)
+drought_ground = "#a39a4a" # grass ground in drought: dry olive-yellow
+autumn = ["#f4b41b", "#e6482e", "#bf7958"]  # replace green in autumn variants: yellow, orange-red, rust
+autumn_items = ["tree", "great_tree", "berries", "herbs", "healing_herbs", "mild_poison"]  # trees and bush-like plants
+flash = "#ffd23f"          # frame blinked around the tile of an important event (bright yellow, stands out on every ground)
+wanderer = "#cfc6b8"       # names, dots and ring of villagers who follow nobody (neutral cream: belongs to no player colour)
+
+# Ground colour behind each terrain sprite (any colour, the sprite draws on top).
+[colors.ground]
+grass = "#2f6b3f"
+sand = "#d9c68f"
+tree = "#2f6b3f"
+stump = "#2f6b3f"
+spring = "#2f6b3f"
+lake = "#2a78a8"
+coast = "#2a78a8"
+farmland_empty = "#5b3d2b"
+farmland_planted = "#5b3d2b"
+farmland_growing = "#5b3d2b"
+farmland_ready = "#5b3d2b"
+farmland_failed = "#4a3326"
+rocky = "#6f6a72"
+rocky_depleted = "#5d5963"
+quarry = "#6f6a72"
+quarry_depleted = "#5d5963"
+
+# The four player sprites are recoloured with these (palette colours so Kenney tiles stay in palette).
+[colors.players]
+player_1 = "#e6482e"  # red
+player_2 = "#3cacd7"  # blue
+player_3 = "#38d973"  # green
+player_4 = "#f4b41b"  # yellow
+
+# Ink colour of each code drawing (its former black parts).
+[colors.ink]
+grass = "#38d973"
+snow = "#cfc6b8"
+drought = "#bf7958"
+overlay_night = "#472d3c"
+overlay_rain = "#3cacd7"
+overlay_storm = "#3cacd7"
+mushrooms = "#bf7958"
+strong_poison = "#e6482e"
+nest_eggs = "#bf7958"
+marker_sleeping = "#3cacd7"
+damaged_house = "#472d3c"
+damaged_hearth = "#472d3c"
+damaged_field = "#472d3c"
+damaged_storehouse = "#472d3c"
+damaged_workshop = "#472d3c"
+damaged_pen = "#472d3c"
+damaged_campfire = "#472d3c"
+damaged_shrine = "#472d3c"
+damaged_offering_spot = "#472d3c"
+damaged_granary = "#472d3c"
+damaged_bridge = "#472d3c"
+damaged_monument = "#472d3c"
+damaged_great_tree = "#472d3c"
+damaged_lake_dock = "#472d3c"
+item_cooked_meat = "#bf7958"
+item_spoiled_meat = "#38d973"
+item_mushrooms = "#bf7958"
+tool_fishing_net = "#cfc6b8"
+ui_pause = "#cfc6b8"
+ui_paused_indicator = "#472d3c"
+ui_font = "#cfc6b8"
+
+# One full-window layer drawn last (both palettes): night/dusk/dawn darkness plus a little for weather.
+[light]
+night_color = "#0b1030"   # deep blue-black
+night_alpha = 150         # 0-255: how dark full night is (readable, not black)
+rain_alpha = 30           # extra darkness in rain
+storm_alpha = 60          # extra darkness in a storm
+
+# ---------------------------------------------------------------- activity bubbles
+# What each activity shows in its bubble: an [items] key (the picture) or "word" (the text from
+# [activity_words]). Every activity kind (all action kinds, the villager jobs, idle and sleeping)
+# needs an entry. These tables add no sprites.
+[activity_icons]
+eat = "item_cooked_meat"        # a meal
+drink = "item_water"            # water
+rest = "word"                   # no fitting picture
+move = "word"                   # walking has no picture
+gather = "item_wood"            # the most common gathering
+farm = "tool_hoe_basic"         # the farming tool
+fish = "tool_fishing_rod"       # the fishing tool
+hunt = "tool_spear_basic"       # the hunting tool
+build = "word"                  # no hammer in the pack
+store = "storehouse"            # putting things in storage
+craft = "tool_axe_basic"        # making a tool
+make_fire = "campfire"          # the fire itself
+cook = "item_cooked_meat"       # the result
+tame = "word"                   # no fitting picture
+use_herb = "item_herbs"         # the herb
+assign_villager = "word"        # no fitting picture
+talk = "word"                   # no fitting picture
+trade = "word"                  # no fitting picture
+gift = "word"                   # no fitting picture
+promise = "word"                # no fitting picture
+ally = "word"                   # no fitting picture
+recruit = "word"                # no fitting picture
+teach = "word"                  # no fitting picture
+guard = "word"                  # shown as a word so it is never mistaken for a weapon
+steal = "word"                  # no fitting picture
+sabotage = "word"               # no fitting picture
+attack = "word"                 # no fitting picture
+chase_off = "word"              # no fitting picture
+claim_land = "boundary_stake"   # the stake that marks land
+pull_stakes = "word"            # no fitting picture
+capture = "word"                # no fitting picture
+poach = "word"                  # no fitting picture
+pray = "word"                   # no fitting picture
+ceremony = "word"               # no fitting picture
+build_shrine = "shrine"         # the building
+offering = "item_offering"      # the offering
+repair = "word"                 # no fitting picture
+drop = "word"                   # no fitting picture
+pick_up = "word"                # no fitting picture
+tend_animals = "word"           # villager job, no fitting picture
+idle = "word"                   # doing nothing
+sleeping = "word"               # asleep
+
+# Text shown for every "word" entry above (at most 10 characters so it fits a small bubble).
+[activity_words]
+rest = "Resting"
+move = "Walking"
+build = "Building"
+tame = "Taming"
+assign_villager = "Assigning"
+talk = "Talking"
+trade = "Trading"
+gift = "Gifting"
+promise = "Promising"
+ally = "Alliance"
+recruit = "Recruiting"
+teach = "Teaching"
+guard = "Guarding"
+steal = "Stealing"
+sabotage = "Sabotage"
+attack = "Attacking"
+chase_off = "Chasing"
+pull_stakes = "Pulling"
+capture = "Capturing"
+poach = "Poaching"
+pray = "Praying"
+ceremony = "Ceremony"
+repair = "Repairing"
+drop = "Dropping"
+pick_up = "Picking up"
+tend_animals = "Tending"
+idle = "Idle"
+sleeping = "Sleeping"

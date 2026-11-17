@@ -1,0 +1,187 @@
+# Models for the nine AI roles (Phase 4). Prices are US dollars per million tokens,
+# checked 2026-11-04 (see managers/codex/plans/phase-4/research.md). A model is never
+# switched during a run; the version the provider reports is saved with every call.
+
+[embedding]
+model = "nomic-embed-text"      # local Ollama embedding model (memory search only)
+
+[llm]
+banned_model_words = ["deepseek", "qwen", "kimi", "moonshot", "glm", "zhipu", "baichuan", "minimax", "ernie", "hunyuan", "doubao", "yi-"]   # no Chinese-developed model may be used
+
+[llm.output_mode]
+# "schema" = the company's own structured-output setting; "prompt" = the reply format is described in the
+# prompt and checked by our own models. If a company refuses its schema, change its line to "prompt".
+anthropic = "prompt"   # Anthropic refused the schema as too complex (Round 3)
+openai = "schema"      # strict schema, far under the documented limits
+google = "schema"      # schema mode with the bounds guard
+xai = "schema"         # OpenAI-compatible strict schema
+mistral = "schema"     # judge schemas are small
+
+# ---- player 1: Anthropic ------------------------------------------------------------
+# source: https://platform.claude.com/docs/en/models/sonnet-5-5/overview
+[roles.player_1_main]
+provider = "anthropic"
+model = "claude-sonnet-5-5"
+source_url = "https://platform.claude.com/docs/en/models/sonnet-5-5/overview"
+thinking = { type = "adaptive", effort = "xhigh" }   # calibrated 2026-11-04: medians claude xhigh 288, gpt xhigh 1034, gemini medium 1006, grok medium 955
+structured_output = "json_schema"
+cache = "explicit"              # cache markers after layers 1 and 2
+max_output_tokens = 8192
+[roles.player_1_main.prices]
+input = 2.0
+cache_write = 2.5               # 5-minute cache write
+cache_read = 0.1
+output = 10.0
+
+# source: https://platform.claude.com/docs/en/models/haiku-5-5/overview
+[roles.player_1_helper]
+provider = "anthropic"
+model = "claude-haiku-5-5"
+source_url = "https://platform.claude.com/docs/en/models/haiku-5-5/overview"
+thinking = { type = "disabled", effort = "low" }
+structured_output = "json_schema"
+cache = "explicit"
+max_output_tokens = 2048
+[roles.player_1_helper.prices]  # prompts over 100k tokens cost more; prompts are kept far below
+input = 0.1
+cache_write = 0.125
+cache_read = 0.01
+output = 0.5
+
+# ---- player 2: OpenAI ---------------------------------------------------------------
+# source: https://developers.openai.com/api/docs/models/gpt-6.1-sol
+[roles.player_2_main]
+provider = "openai"
+model = "gpt-6.1-sol"
+source_url = "https://developers.openai.com/api/docs/models/gpt-6.1-sol"
+thinking = { effort = "xhigh" }   # calibrated 2026-11-04: medians claude xhigh 288, gpt xhigh 1034, gemini medium 1006, grok medium 955
+structured_output = "json_schema"
+cache = "automatic"
+max_output_tokens = 8192
+[roles.player_2_main.prices]
+input = 2.0
+cache_write = 2.5
+cache_read = 0.1
+output = 10.0
+
+# source: https://developers.openai.com/api/docs/models/gpt-6-luna
+[roles.player_2_helper]
+provider = "openai"
+model = "gpt-6-luna"
+source_url = "https://developers.openai.com/api/docs/models/gpt-6-luna"
+thinking = { effort = "none" }
+structured_output = "json_schema"
+cache = "automatic"
+max_output_tokens = 2048
+[roles.player_2_helper.prices]
+input = 0.1
+cache_write = 0.125
+cache_read = 0.01
+output = 0.5
+
+# ---- player 3: Google ---------------------------------------------------------------
+# source: https://aistudio.google.com/docs/models/gemini-3.8-flash
+[roles.player_3_main]
+provider = "google"
+model = "gemini-3.8-flash"
+source_url = "https://aistudio.google.com/docs/models/gemini-3.8-flash"
+thinking = { thinking_level = "medium" }
+structured_output = "json_schema"
+cache = "automatic"             # implicit cache only; no storage charges
+max_output_tokens = 8192
+prices_valid_until = "2026-12-31"   # these rates double on 2027-01-01: refresh before then
+[roles.player_3_main.prices]
+input = 0.75
+cache_write = 0.0               # no separate implicit-cache write charge
+cache_read = 0.075
+output = 3.75
+
+# source: https://aistudio.google.com/docs/models/gemini-3.5-flash-lite
+[roles.player_3_helper]
+provider = "google"
+model = "gemini-3.5-flash-lite"
+source_url = "https://aistudio.google.com/docs/models/gemini-3.5-flash-lite"
+thinking = { thinking_level = "minimal" }   # no true "off" is documented; thought tokens are logged
+structured_output = "json_schema"
+cache = "automatic"
+max_output_tokens = 2048
+[roles.player_3_helper.prices]
+input = 0.3
+cache_write = 0.0
+cache_read = 0.03
+output = 2.5
+
+# ---- player 4: xAI ------------------------------------------------------------------
+# source: https://docs.x.ai/developers/model-capabilities/text/reasoning
+[roles.player_4_main]
+provider = "xai"
+model = "grok-4.7"
+source_url = "https://docs.x.ai/developers/model-capabilities/text/reasoning"
+thinking = { effort = "medium" }
+structured_output = "json_schema"
+cache = "automatic"
+max_output_tokens = 8192
+[roles.player_4_main.prices]    # prompts under 200k tokens (longer ones cost double)
+input = 2.0
+cache_write = 2.0               # no separate write charge: the input rate
+cache_read = 0.5
+output = 6.0
+
+# source: https://docs.x.ai/developers/models/grok-4.20-0309-non-reasoning
+[roles.player_4_helper]
+provider = "xai"
+model = "grok-4.20-0309-non-reasoning"
+source_url = "https://docs.x.ai/developers/models/grok-4.20-0309-non-reasoning"
+thinking = {}                   # non-reasoning model: the reasoning setting is left out
+structured_output = "json_schema"
+cache = "automatic"
+max_output_tokens = 2048
+[roles.player_4_helper.prices]
+input = 1.25
+cache_write = 1.25
+cache_read = 0.2
+output = 2.5
+
+# ---- judge: Mistral -----------------------------------------------------------------
+# source: https://docs.mistral.ai/models/mistral-small-4-0-26-03
+[roles.judge]
+provider = "mistral"
+model = "mistral-small-2603"
+source_url = "https://docs.mistral.ai/models/mistral-small-4-0-26-03"
+thinking = { reasoning_effort = "none" }
+structured_output = "json_schema"
+cache = "none"                  # caching discount not verified, so none is assumed
+max_output_tokens = 2048
+[roles.judge.prices]
+input = 0.15
+cache_write = 0.15
+cache_read = 0.15
+output = 0.6
+
+# ---- calibration: how `calibrate` measures cost and matches thinking effort ----------
+[calibration]
+repeats = 2                     # each sample call is made this many times
+max_rounds = 6               # most search rounds when matching the four mains
+max_median_ratio = 1.25         # matched when the highest median thinking is within 25% of the lowest
+slow_per_day = 14               # slow decisions per player per game day (cost model)
+hooked_per_day = 6              # hooked decisions per player per game day
+fast_per_day = 20               # fast decisions per player per game day
+flagged_fast_per_day = 2        # fast decisions per player per day that the judge labels in full
+reflection_cost_factor = 2.0    # one weekly reflection costs this many slow main calls
+summary_cost_factor = 3.0       # one daily summary or weekly profile costs this many label calls
+pilot_weeks = 3                 # game weeks in the pilot
+target_week = 7                 # the real run should reach this game week within the cap
+safety_share = 0.25             # the pilot estimate gets this much extra
+
+[calibration.ladders.anthropic]
+key = "effort"
+steps = ["low", "medium", "high", "xhigh", "max"]
+[calibration.ladders.openai]
+key = "effort"
+steps = ["low", "medium", "high", "xhigh"]
+[calibration.ladders.google]
+key = "thinking_level"
+steps = ["low", "medium", "high"]
+[calibration.ladders.xai]
+key = "effort"
+steps = ["low", "medium", "high"]

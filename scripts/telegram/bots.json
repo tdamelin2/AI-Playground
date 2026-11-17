@@ -1,0 +1,5 @@
+{
+  "_comment": "Expected bot usernames. The connector checks each token against these, so a token saved under the wrong name is caught. Usernames are not secret; tokens never go in this file.",
+  "claude": "your_claude_bot",
+  "codex": "your_codex_bot"
+}
